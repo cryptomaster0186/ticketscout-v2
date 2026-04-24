@@ -65,6 +65,12 @@ def main():
         sys.exit(1)
 
     from app import app
+    import database as _db
+    import auth as _auth
+
+    # Initialise DB and create default admin on first run
+    _db.init_db()
+    _auth.ensure_default_admin()
 
     logger.info("=" * 60)
     logger.info("  TicketScout — Production Mode")
