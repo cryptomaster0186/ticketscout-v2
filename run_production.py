@@ -49,7 +49,9 @@ def main():
     parser = argparse.ArgumentParser(description="TicketScout production server")
     # Railway (and most cloud platforms) inject a PORT env var — honour it
     _default_port = int(os.getenv("PORT", 5001))
-    _default_host = "0.0.0.0" if os.getenv("RAILWAY_ENVIRONMENT") else "127.0.0.1"
+    # Bind to 0.0.0.0 on any cloud platform (Railway, Render, Fly, etc.)
+    _on_cloud = any(os.getenv(v) for v in ("RAILWAY_ENVIRONMENT", "RENDER", "FLY_APP_NAME", "DYNO"))
+    _default_host = "0.0.0.0" if _on_cloud else "127.0.0.1"
 
     parser.add_argument("--host",  default=_default_host, help="Bind host")
     parser.add_argument("--port",  default=_default_port, type=int, help="Port")
