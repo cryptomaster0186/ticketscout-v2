@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: ticketscout
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python3 run_production.py
+    plan: free
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: PRODUCTION
+        value: true
