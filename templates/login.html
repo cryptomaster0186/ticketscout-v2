@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entradas Ticket Scout — Login</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:         #080c10;
+  --surface:    #0d1117;
+  --surface2:   #141a24;
+  --border:     #1e2a3a;
+  --border2:    #26354a;
+  --text:       #e6edf3;
+  --text-muted: #5a6880;
+  --text-soft:  #8b9ab0;
+  --neon:       #00ff88;
+  --neon-dim:   rgba(0,255,136,.08);
+  --neon-glow:  rgba(0,255,136,.3);
+  --red:        #ff4d6a;
+  --font:       'Inter', -apple-system, sans-serif;
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 14px;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(0,255,136,.06), transparent),
+    radial-gradient(ellipse 40% 30% at 80% 80%, rgba(79,195,247,.04), transparent);
+}
+
+/* ── Card ── */
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 44px 40px 40px;
+  box-shadow:
+    0 0 0 1px rgba(0,255,136,.04),
+    0 24px 64px rgba(0,0,0,.5),
+    0 0 80px rgba(0,255,136,.03);
+  position: relative;
+  overflow: hidden;
+}
+
+.login-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--neon), transparent);
+  opacity: .6;
+}
+
+/* ── Logo ── */
+.login-logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+.login-stub {
+  width: 44px;
+  height: 44px;
+  background: var(--neon);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 0 20px var(--neon-glow);
+}
+
+.login-e {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 26px;
+  color: #000;
+  line-height: 1;
+}
+
+.login-wordmark .top {
+  display: block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 900;
+  font-size: 20px;
+  letter-spacing: .5px;
+  line-height: 1.1;
+  color: var(--text);
+}
+
+.login-wordmark .btm {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--neon);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+/* ── Heading ── */
+.login-heading {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -.4px;
+  margin-bottom: 6px;
+}
+
+.login-sub {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+
+/* ── Form ── */
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-soft);
+  margin-bottom: 7px;
+  letter-spacing: .3px;
+}
+
+.form-group input {
+  width: 100%;
+  height: 44px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 0 14px;
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 14px;
+  transition: border-color .2s, box-shadow .2s;
+  outline: none;
+}
+
+.form-group input:focus {
+  border-color: var(--neon);
+  box-shadow: 0 0 0 3px rgba(0,255,136,.12);
+}
+
+.form-group input::placeholder { color: var(--text-muted); }
+
+/* ── Error ── */
+.login-error {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,77,106,.1);
+  border: 1px solid rgba(255,77,106,.3);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 18px;
+  font-size: 13px;
+  color: var(--red);
+}
+
+.login-error .err-icon { font-size: 15px; flex-shrink: 0; }
+
+/* ── Submit button ── */
+.btn-login {
+  width: 100%;
+  height: 46px;
+  background: var(--neon);
+  border: none;
+  border-radius: 9px;
+  color: #000;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .3px;
+  cursor: pointer;
+  transition: all .15s;
+  box-shadow: 0 0 24px rgba(0,255,136,.25);
+  margin-top: 8px;
+}
+
+.btn-login:hover {
+  box-shadow: 0 0 36px rgba(0,255,136,.45);
+  transform: translateY(-1px);
+}
+
+.btn-login:active {
+  transform: translateY(0);
+}
+
+/* ── Footer hint ── */
+.login-footer {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ── Reveal password ── */
+.pw-wrap {
+  position: relative;
+}
+
+.pw-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1;
+  padding: 2px;
+  transition: color .15s;
+}
+
+.pw-toggle:hover { color: var(--text); }
+
+/* ── Animated background dots ── */
+.bg-dots {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.dot {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--neon);
+  opacity: .04;
+  animation: float linear infinite;
+}
+
+@keyframes float {
+  from { transform: translateY(100vh) scale(0); opacity: 0; }
+  10%  { opacity: .05; }
+  90%  { opacity: .03; }
+  to   { transform: translateY(-100px) scale(1); opacity: 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- Subtle background animation -->
+<div class="bg-dots" aria-hidden="true">
+  <div class="dot" style="width:6px;height:6px;left:15%;animation-duration:14s;animation-delay:0s"></div>
+  <div class="dot" style="width:4px;height:4px;left:35%;animation-duration:18s;animation-delay:3s"></div>
+  <div class="dot" style="width:8px;height:8px;left:55%;animation-duration:12s;animation-delay:6s"></div>
+  <div class="dot" style="width:5px;height:5px;left:75%;animation-duration:20s;animation-delay:1s"></div>
+  <div class="dot" style="width:3px;height:3px;left:85%;animation-duration:16s;animation-delay:8s"></div>
+  <div class="dot" style="width:7px;height:7px;left:25%;animation-duration:22s;animation-delay:4s"></div>
+</div>
+
+<!-- Login card -->
+<div class="login-card" style="position:relative;z-index:1">
+
+  <!-- Logo -->
+  <div class="login-logo">
+    <div class="login-stub">
+      <span class="login-e">E</span>
+    </div>
+    <div class="login-wordmark">
+      <span class="top">Entradas</span>
+      <span class="btm">Ticket Scout</span>
+    </div>
+  </div>
+
+  <h1 class="login-heading">Welcome back</h1>
+  <p class="login-sub">Sign in to access your scout dashboard</p>
+
+  <!-- Error message -->
+  {% if error %}
+  <div class="login-error">
+    <span class="err-icon">⚠️</span>
+    <span>{{ error }}</span>
+  </div>
+  {% endif %}
+
+  <!-- Login form -->
+  <form method="POST" action="/login{% if request.args.get('next') %}?next={{ request.args.get('next') }}{% endif %}" autocomplete="on">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        placeholder="Enter your username"
+        autocomplete="username"
+        autofocus
+        required
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <div class="pw-wrap">
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Enter your password"
+          autocomplete="current-password"
+          required
+        >
+        <button type="button" class="pw-toggle" onclick="togglePw()" title="Show/hide password">👁</button>
+      </div>
+    </div>
+
+    <button type="submit" class="btn-login">Sign In →</button>
+  </form>
+
+  <p class="login-footer">
+    EU · UK Resale Intelligence &nbsp;·&nbsp; v2<br>
+    <span style="opacity:.6">Session valid for 8 hours</span>
+  </p>
+
+</div>
+
+<script>
+function togglePw() {
+  const pw  = document.getElementById('password');
+  const btn = document.querySelector('.pw-toggle');
+  if (pw.type === 'password') {
+    pw.type = 'text';
+    btn.textContent = '🙈';
+  } else {
+    pw.type = 'password';
+    btn.textContent = '👁';
+  }
+}
+</script>
+</body>
+</html>

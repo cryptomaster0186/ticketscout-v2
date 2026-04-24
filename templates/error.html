@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ code }} — TicketScout</title>
+<style>
+  body {
+    margin: 0; padding: 0;
+    background: #080c10; color: #e6edf3;
+    font-family: 'Inter', -apple-system, sans-serif;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh;
+  }
+  .box {
+    text-align: center; padding: 48px 40px;
+    background: #0d1117; border: 1px solid #1e2a3a;
+    border-radius: 14px; max-width: 480px; width: 90%;
+  }
+  .code {
+    font-size: 72px; font-weight: 900; color: #00ff88;
+    line-height: 1; margin-bottom: 8px;
+    font-family: 'Barlow Condensed', 'Inter', sans-serif;
+  }
+  .title { font-size: 22px; font-weight: 700; margin-bottom: 10px; }
+  .msg   { font-size: 14px; color: #8b9ab0; margin-bottom: 32px; line-height: 1.6; }
+  a {
+    display: inline-block; padding: 10px 24px;
+    background: #00ff88; color: #000; border-radius: 8px;
+    font-weight: 700; font-size: 14px; text-decoration: none;
+  }
+  a:hover { opacity: .85; }
+</style>
+</head>
+<body>
+  <div class="box">
+    <div class="code">{{ code }}</div>
+    <div class="title">{{ title }}</div>
+    <div class="msg">{{ message }}</div>
+    <a href="/">← Back to Dashboard</a>
+  </div>
+</body>
+</html>

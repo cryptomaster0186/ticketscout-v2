@@ -1,0 +1,52 @@
+# ── Secrets (NEVER commit these) ─────────────────────────────────────────────
+.env
+google-service-key.json
+*.pem
+*.key
+*.p12
+
+# ── Database ──────────────────────────────────────────────────────────────────
+*.db
+*.db-shm
+*.db-wal
+ticketscout_backup_*.db
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+*.log
+backup.log
+
+# ── Python ───────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+pip-wheel-metadata/
+
+# ── Virtual environments ──────────────────────────────────────────────────────
+venv/
+.venv/
+env/
+ENV/
+.env.local
+.env.production
+
+# ── OS ────────────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Editor ────────────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ── Scripts uploaded at runtime ───────────────────────────────────────────────
+scripts/*.py

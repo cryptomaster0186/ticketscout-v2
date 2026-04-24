@@ -1,0 +1,36 @@
+[Unit]
+Description=TicketScout Web Dashboard
+After=network.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ticketscout
+Group=ticketscout
+WorkingDirectory=/home/ticketscout/ticketscout_v2
+
+# Load .env variables
+EnvironmentFile=/home/ticketscout/ticketscout_v2/.env
+Environment=PRODUCTION=true
+
+# Run with Waitress (production WSGI)
+ExecStart=/home/ticketscout/ticketscout_v2/venv/bin/python run_production.py --host 127.0.0.1 --port 5001 --threads 4
+
+# Restart on crash — wait 5s before retry
+Restart=on-failure
+RestartSec=5s
+
+# Security hardening
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ReadWritePaths=/home/ticketscout/ticketscout_v2
+ProtectHome=read-only
+
+# Logging — view with: journalctl -u ticketscout -f
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ticketscout
+
+[Install]
+WantedBy=multi-user.target
