@@ -8111,6 +8111,18 @@ async function runScript() {
   if (r && !r.error) {
     toast(`▶ Started ${_selectedScript}`, 'success');
     setScriptRunning(true, _selectedScript);
+
+    // Start SSE log stream
+    if (signupLogSource) { signupLogSource.close(); signupLogSource = null; }
+    const logEl = document.getElementById('signup-log');
+    if (logEl) logEl.innerHTML = '';
+    signupLogSource = new EventSource('/api/signup/logs/stream');
+    signupLogSource.onmessage = (e) => {
+      try { appendLog(JSON.parse(e.data)); } catch(err) {}
+    };
+    signupLogSource.onerror = () => {
+      if (signupLogSource) { signupLogSource.close(); signupLogSource = null; }
+    };
   } else {
     toast((r && r.error) || 'Failed to start script', 'error');
   }
