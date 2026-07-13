@@ -62,8 +62,10 @@ def run_script(script_path: str, url: str,
     prx_tmp.write("\n".join(proxy_lines))
     prx_tmp.close()
 
+    import sys
+    python = sys.executable
     cmd = [
-        "python3", script_path,
+        python, script_path,
         "--url",      url,
         "--accounts", acc_tmp.name,
         "--proxies",  prx_tmp.name,
