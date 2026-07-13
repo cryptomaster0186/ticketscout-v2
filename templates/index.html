@@ -8118,7 +8118,16 @@ async function runScript() {
     if (logEl) logEl.innerHTML = '';
     signupLogSource = new EventSource('/api/signup/logs/stream');
     signupLogSource.onmessage = (e) => {
-      try { appendLog(JSON.parse(e.data)); } catch(err) {}
+      try {
+        const d = JSON.parse(e.data);
+        if (!logEl) return;
+        const colors = { info: 'var(--text)', warning: 'var(--orange)', error: 'var(--red)', debug: 'var(--text-muted)' };
+        const line = document.createElement('div');
+        line.style.color = colors[d.level] || 'var(--text)';
+        line.textContent = `[${d.ts}] ${d.msg}`;
+        logEl.appendChild(line);
+        logEl.scrollTop = logEl.scrollHeight;
+      } catch(err) {}
     };
     signupLogSource.onerror = () => {
       if (signupLogSource) { signupLogSource.close(); signupLogSource = null; }
