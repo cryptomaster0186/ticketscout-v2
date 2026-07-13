@@ -76,6 +76,10 @@ def run_script(script_path: str, url: str,
     _log(f"  URL: {url}", "info")
     _log(f"  Accounts: {len(accounts_lines)} | Proxies: {len(proxy_lines)}", "info")
 
+    env = os.environ.copy()
+    env["PYTHONIOENCODING"] = "utf-8"
+    env["PYTHONUTF8"] = "1"
+
     try:
         proc = subprocess.Popen(
             cmd,
@@ -83,6 +87,8 @@ def run_script(script_path: str, url: str,
             stderr=subprocess.STDOUT,
             text=True,
             bufsize=1,
+            encoding="utf-8",
+            env=env,
         )
     except Exception as e:
         _log(f"❌ Failed to start script: {e}", "error")
