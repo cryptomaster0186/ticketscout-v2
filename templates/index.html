@@ -1965,9 +1965,9 @@ body { flex-direction: column !important; overflow: hidden; }
 .tn-drop-btn:hover, .tn-drop-btn.active { color: var(--text); background: var(--surface2); }
 .tn-drop-arrow { font-size: 9px; opacity: .6; }
 .tn-drop-menu {
-  display: none; position: absolute; top: calc(100% + 6px); left: 0;
+  display: none; position: fixed; top: 0; left: 0;
   background: var(--surface); border: 1px solid var(--border); border-radius: 9px;
-  padding: 5px; min-width: 148px; z-index: 1001;
+  padding: 5px; min-width: 148px; z-index: 9999;
   box-shadow: 0 12px 32px rgba(0,0,0,.45);
 }
 .tn-drop-menu.open { display: block; }
@@ -9418,9 +9418,14 @@ function tnDropToggle(name, defaultPage) {
   if (isOpen) {
     showPage(defaultPage);
   } else {
-    menu.classList.add('open');
     const btn = menu.previousElementSibling;
-    if (btn) btn.classList.add('active');
+    if (btn) {
+      const rect = btn.getBoundingClientRect();
+      menu.style.top  = (rect.bottom + 6) + 'px';
+      menu.style.left = rect.left + 'px';
+      btn.classList.add('active');
+    }
+    menu.classList.add('open');
   }
 }
 
