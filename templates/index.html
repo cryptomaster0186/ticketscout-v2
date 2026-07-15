@@ -1908,6 +1908,191 @@ th.accts-col-extra, td.accts-col-extra { display:none; }
 }
 .notif-toggle input:checked + .notif-slider { background:rgba(0,255,136,.2); border-color:var(--neon-border); }
 .notif-toggle input:checked + .notif-slider::before { transform:translateX(20px); background:var(--neon); }
+
+/* ═══════════════════════════════════════
+   TOP NAV — replaces sidebar
+═══════════════════════════════════════ */
+body { flex-direction: column !important; overflow: hidden; }
+#sidebar { display: none !important; }
+#main { flex: 1; overflow-y: auto; display: flex; flex-direction: column; min-width: 0; }
+
+#topnav {
+  height: 52px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  flex-shrink: 0;
+  z-index: 100;
+  gap: 0;
+  position: sticky;
+  top: 0;
+}
+.tn-logo {
+  display: flex; align-items: center; gap: 9px;
+  margin-right: 24px; flex-shrink: 0;
+}
+.tn-mark {
+  width: 26px; height: 26px; border-radius: 6px;
+  background: linear-gradient(135deg, #0f2a54, #1a4080);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: #7eb3f5;
+  border: 1px solid #1e3a6e; flex-shrink: 0;
+}
+.tn-name {
+  font-size: 13px; font-weight: 700; color: var(--text);
+  letter-spacing: -.02em; white-space: nowrap;
+}
+.tn-nav { display: flex; align-items: center; flex: 1; gap: 1px; }
+.tn-nav > a {
+  font-family: var(--font); font-size: 12.5px; font-weight: 500;
+  color: var(--text-soft); padding: 6px 11px; border-radius: 6px;
+  cursor: pointer; transition: color .15s, background .15s;
+  white-space: nowrap; text-decoration: none;
+}
+.tn-nav > a:hover { color: var(--text); background: var(--surface2); opacity: 1; }
+.tn-nav > a.active { color: var(--neon); background: var(--neon-dim); }
+.tn-drop { position: relative; }
+.tn-drop-btn {
+  font-family: var(--font); font-size: 12.5px; font-weight: 500;
+  color: var(--text-soft); padding: 6px 11px; border-radius: 6px;
+  cursor: pointer; transition: color .15s, background .15s;
+  white-space: nowrap; border: none; background: none;
+  display: flex; align-items: center; gap: 4px;
+}
+.tn-drop-btn:hover, .tn-drop-btn.active { color: var(--text); background: var(--surface2); }
+.tn-drop-arrow { font-size: 9px; opacity: .6; }
+.tn-drop-menu {
+  display: none; position: absolute; top: calc(100% + 6px); left: 0;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 9px;
+  padding: 5px; min-width: 148px; z-index: 200;
+  box-shadow: 0 12px 32px rgba(0,0,0,.45);
+}
+.tn-drop-menu.open { display: block; }
+.tn-drop-menu a {
+  display: block; font-family: var(--font); font-size: 12.5px; font-weight: 500;
+  color: var(--text-soft); padding: 7px 11px; border-radius: 6px;
+  cursor: pointer; transition: all .12s;
+}
+.tn-drop-menu a:hover { color: var(--text); background: var(--surface2); }
+.tn-inventory-link { color: var(--neon) !important; }
+.tn-right {
+  display: flex; align-items: center; gap: 8px;
+  margin-left: 12px; flex-shrink: 0;
+}
+.tn-sched-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--text-muted);
+  transition: background .3s;
+}
+.tn-sched-dot.running, .tn-sched-dot.on { background: var(--neon); box-shadow: 0 0 6px var(--neon-glow); animation: tn-pulse 2s ease-in-out infinite; }
+@keyframes tn-pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+.tn-sched-label { font-size: 11px; color: var(--text-muted); white-space: nowrap; }
+#sched-toggle {
+  font-size: 11px; padding: 5px 12px;
+  height: 28px; white-space: nowrap;
+}
+.tn-user { font-size: 11.5px; color: var(--text-soft); font-weight: 500; }
+.tn-signout {
+  font-size: 11px; color: var(--text-muted); padding: 4px 9px;
+  border: 1px solid var(--border); border-radius: 5px; transition: all .15s;
+  text-decoration: none;
+}
+.tn-signout:hover { border-color: var(--red); color: var(--red); opacity: 1; }
+.tn-theme { background: none; border: 1px solid var(--border); border-radius: 5px; cursor: pointer; padding: 4px 7px; font-size: 13px; }
+.tn-sep { width: 1px; height: 16px; background: var(--border); margin: 0 4px; flex-shrink: 0; }
+
+/* ═══════════════════════════════════════
+   INVENTORY PAGE — premium redesign
+═══════════════════════════════════════ */
+#page-tickets .page-header {
+  padding: 20px 28px 16px;
+  background: var(--bg);
+}
+#page-tickets .page-header h2 {
+  font-size: 21px; font-weight: 700; letter-spacing: -.04em; color: var(--text);
+}
+/* Premium ticket sub-tabs */
+.ticket-tabs {
+  background: var(--bg) !important;
+  padding: 0 24px !important;
+  border-bottom: 1px solid var(--border) !important;
+  gap: 2px !important;
+}
+.ticket-tabs .ttab {
+  font-size: 12px !important; font-weight: 500 !important;
+  padding: 9px 14px !important; color: var(--text-muted) !important;
+  border-bottom: 2px solid transparent !important;
+  transition: color .15s !important;
+}
+.ticket-tabs .ttab:hover { color: var(--text-soft) !important; }
+.ticket-tabs .ttab.active {
+  color: var(--text) !important; border-bottom-color: var(--neon) !important;
+}
+
+/* Premium stat cards */
+.tm-cards {
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)) !important;
+  gap: 10px !important;
+  padding: 16px 24px 0 !important;
+}
+.tm-card {
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 10px !important;
+  padding: 14px 16px !important;
+  transition: border-color .2s, transform .2s !important;
+}
+.tm-card:hover { border-color: var(--border2) !important; transform: translateY(-1px); }
+.tm-card::after { height: 2px !important; }
+.tm-card.neon::after { background: var(--neon) !important; }
+.tm-card .tm-label {
+  font-size: 10px !important; font-weight: 600 !important;
+  text-transform: uppercase !important; letter-spacing: .07em !important;
+  color: var(--text-muted) !important; margin-bottom: 7px !important;
+}
+.tm-card .tm-value {
+  font-size: 20px !important; font-weight: 700 !important;
+  letter-spacing: -.03em !important; line-height: 1 !important;
+  font-variant-numeric: tabular-nums !important;
+}
+
+/* Premium table rows */
+#tickets-tbody tr, #tm-top-tbody tr {
+  transition: background .1s;
+}
+#tickets-tbody tr:hover td, #tm-top-tbody tr:hover td {
+  background: rgba(0,255,136,.03);
+}
+#tickets-tbody tr:hover td:first-child, #tm-top-tbody tr:hover td:first-child {
+  box-shadow: inset 2px 0 0 var(--neon);
+}
+#tickets-tbody td, #tm-top-tbody td {
+  font-size: 12.5px;
+  padding: 9px 14px !important;
+}
+#tickets-tbody td strong, #tm-top-tbody td strong {
+  font-weight: 600; color: var(--text);
+}
+
+/* Sheets sync dot in header */
+.inv-sync { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text-muted); }
+.inv-sync-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--neon); animation: tn-pulse 2.5s ease-in-out infinite; }
+
+/* Dashboard money grid */
+.db-money-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 28px; }
+.db-money-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px 18px; position: relative; overflow: hidden; transition: border-color .2s, transform .2s; }
+.db-money-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--border); border-radius: 12px 12px 0 0; transition: background .2s; }
+.db-money-card:hover { border-color: rgba(255,255,255,.12); transform: translateY(-1px); }
+.db-money-profit::before { background: linear-gradient(90deg, #3d7fff, #5a9aff); }
+.db-money-net::before    { background: linear-gradient(90deg, #00ff88, #00cc66); }
+.db-money-roi::before    { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+.db-money-label { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+.db-money-value { font-size: 26px; font-weight: 700; letter-spacing: -.03em; color: var(--text); font-variant-numeric: tabular-nums; margin-bottom: 5px; }
+.db-money-sub   { font-size: 11px; color: var(--text-muted); }
+.db-pos { color: var(--neon) !important; }
+.db-neg { color: #ff5b6a !important; }
+@media (max-width: 900px) { .db-money-grid { grid-template-columns: repeat(2, 1fr); } }
 </style>
 </head>
 <body>
@@ -1943,69 +2128,50 @@ th.accts-col-extra, td.accts-col-extra { display:none; }
 <!-- ══════════════════════════════════════
      SIDEBAR
 ══════════════════════════════════════ -->
-<div id="sidebar">
-  <div class="sidebar-logo">
-    <div class="sb-stub">
-      <span class="sb-e">E</span>
-    </div>
-    <div class="sb-words">
-      <span class="top">Entradas</span>
-      <span class="btm">Ticket Scout</span>
-    </div>
+<div id="topnav">
+  <div class="tn-logo">
+    <div class="tn-mark">TS</div>
+    <span class="tn-name">TicketScout</span>
   </div>
 
-  <nav>
-    <div class="nav-divider">Scout</div>
-    <a class="active" onclick="showPage('dashboard')">
-      <span class="nav-icon">📊</span> Dashboard
+  <nav class="tn-nav">
+    <a data-page="dashboard" class="active" onclick="showPage('dashboard')">Dashboard</a>
+    <a data-page="opportunities" onclick="showPage('opportunities')">
+      Opportunities<span class="nav-badge" id="badge-opps" style="margin-left:5px;border-radius:8px;padding:1px 5px;font-size:10px;font-weight:700;background:var(--neon);color:#000;display:none"></span>
     </a>
-    <a onclick="showPage('opportunities')">
-      <span class="nav-icon">🔥</span> Opportunities
-      <span class="nav-badge" id="badge-opps"></span>
-    </a>
-    <a onclick="showPage('events')">
-      <span class="nav-icon">🎟</span> All Events
-    </a>
-    <a onclick="showPage('logs')">
-      <span class="nav-icon">📋</span> Live Logs
-    </a>
-    <div class="nav-divider">Operations</div>
-    <a onclick="showPage('signups')">
-      <span class="nav-icon">🤖</span> Signup Bot
-    </a>
-    <a onclick="showPage('accounts')">
-      <span class="nav-icon">👤</span> Accounts
-      <span class="nav-badge" id="badge-accounts"></span>
-    </a>
-    <a onclick="showPage('batch')">
-      <span class="nav-icon">📋</span> CSV Builder
-    </a>
-    <div class="nav-divider">Finance</div>
-    <a onclick="showPage('tickets')">
-      <span class="nav-icon">🎫</span> Tickets
-      <span class="nav-badge" id="badge-tickets"></span>
-    </a>
-    <a onclick="showPage('settings')">
-      <span class="nav-icon">⚙️</span> Settings
-    </a>
+    <a data-page="tickets" onclick="showPage('tickets')" class="tn-inventory-link">Inventory</a>
+
+    <div class="tn-drop" id="tn-drop-scout">
+      <button class="tn-drop-btn" onclick="tnDropToggle('scout', 'events')">Scout <span class="tn-drop-arrow">▾</span></button>
+      <div class="tn-drop-menu" id="tn-menu-scout">
+        <a data-page="events" onclick="tnNav('events')">All Events</a>
+        <a data-page="logs" onclick="tnNav('logs')">Live Logs</a>
+      </div>
+    </div>
+
+    <div class="tn-drop" id="tn-drop-tools">
+      <button class="tn-drop-btn" onclick="tnDropToggle('tools', 'signups')">Tools <span class="tn-drop-arrow">▾</span></button>
+      <div class="tn-drop-menu" id="tn-menu-tools">
+        <a data-page="signups" onclick="tnNav('signups')">Signup Bot</a>
+        <a data-page="accounts" onclick="tnNav('accounts')">
+          Accounts<span class="nav-badge" id="badge-accounts" style="margin-left:5px;border-radius:8px;padding:1px 5px;font-size:10px;font-weight:700;background:var(--neon);color:#000;display:none"></span>
+        </a>
+        <a data-page="batch" onclick="tnNav('batch')">CSV Builder</a>
+      </div>
+    </div>
+
+    <a data-page="settings" onclick="showPage('settings')">Settings</a>
   </nav>
 
-  <div class="sidebar-footer">
-    <div class="sched-row">
-      <div id="sched-dot"></div>
-      <span id="sched-label">Scheduler off</span>
-    </div>
+  <div class="tn-right">
+    <div class="tn-sched-dot" id="sched-dot"></div>
+    <span class="tn-sched-label" id="sched-label">Scheduler off</span>
     <button id="sched-toggle" onclick="toggleScheduler()">▶ Start Scout</button>
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px">
-      <div style="display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text-muted)">
-        <span>👤</span>
-        <span id="sidebar-username" style="font-weight:600;color:var(--text-soft)">{{ current_user }}</span>
-      </div>
-      <div style="display:flex;gap:4px">
-        <a href="/logout" style="font-size:11px;color:var(--text-muted);padding:3px 8px;border:1px solid var(--border);border-radius:5px;transition:all .15s" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-muted)'">Sign out</a>
-        <button class="theme-btn" onclick="toggleTheme()" title="Toggle theme">🌙</button>
-      </div>
-    </div>
+    <div class="tn-sep"></div>
+    <span class="tn-user" id="sidebar-username">{{ current_user }}</span>
+    <a href="/logout" class="tn-signout">Sign out</a>
+    <button class="tn-theme" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+    <span class="nav-badge" id="badge-tickets" style="border-radius:8px;padding:1px 5px;font-size:10px;font-weight:700;background:var(--neon);color:#000;display:none"></span>
   </div>
 </div>
 
@@ -2019,7 +2185,7 @@ th.accts-col-extra, td.accts-col-extra { display:none; }
     <div class="page-header">
       <div>
         <h2>Dashboard</h2>
-        <div class="subtitle">Live overview — auto-refreshes every 30s</div>
+        <div class="subtitle">Live overview · auto-refreshes every 30s</div>
       </div>
       <button class="btn" onclick="loadDashboard()">↺ Refresh</button>
     </div>
@@ -2034,108 +2200,32 @@ th.accts-col-extra, td.accts-col-extra { display:none; }
         <button class="btn-start-big" id="main-start-btn" onclick="toggleScheduler()">▶ Start Scout</button>
       </div>
 
-      <!-- STAT CARDS -->
-      <div class="cards">
-        <div class="card blue">
-          <div class="label">Total Events</div>
-          <div class="value" id="stat-total">—</div>
-          <div class="sub">In database</div>
+      <!-- ZONE 1: Money stats -->
+      <div class="db-money-grid">
+        <div class="db-money-card db-money-profit">
+          <div class="db-money-label">Gross P&amp;L</div>
+          <div class="db-money-value fin-val" id="db-gross-pl">—</div>
+          <div class="db-money-sub">revenue − cost</div>
         </div>
-        <div class="card neon">
-          <div class="label">On Sale</div>
-          <div class="value" id="stat-onsale">—</div>
-          <div class="sub">Available now</div>
+        <div class="db-money-card db-money-net">
+          <div class="db-money-label">Net Profit</div>
+          <div class="db-money-value fin-val" id="db-net-profit">—</div>
+          <div class="db-money-sub">after all expenses</div>
         </div>
-        <div class="card red">
-          <div class="label">Sold Out</div>
-          <div class="value" id="stat-soldout">—</div>
-          <div class="sub">Watching for restocks</div>
+        <div class="db-money-card">
+          <div class="db-money-label">Invested</div>
+          <div class="db-money-value fin-val" id="db-invested">—</div>
+          <div class="db-money-sub">capital deployed</div>
         </div>
-        <div class="card orange">
-          <div class="label">Opportunities</div>
-          <div class="value" id="stat-tracked">—</div>
-          <div class="sub">TRACK flagged</div>
-        </div>
-        <div class="card purple">
-          <div class="label">Restocks</div>
-          <div class="value" id="stat-restocks">—</div>
-          <div class="sub">Detected today</div>
+        <div class="db-money-card db-money-roi">
+          <div class="db-money-label">ROI</div>
+          <div class="db-money-value" id="db-roi">—</div>
+          <div class="db-money-sub">return on investment</div>
         </div>
       </div>
 
-      <!-- TOP OPPORTUNITIES + PROFIT ESTIMATE -->
-      <div class="dash-insight-row">
-        <!-- Top 5 widget -->
-        <div class="dash-widget">
-          <div class="dash-widget-header">
-            <h4>🔥 Top Opportunities Today</h4>
-            <span class="wh-link" onclick="showPage('opportunities')">View all →</span>
-          </div>
-          <div class="dash-widget-body" id="dash-top-opps">
-            <div style="color:var(--text-muted);font-size:12px;text-align:center;padding:20px">
-              Loading…
-            </div>
-          </div>
-        </div>
-
-        <!-- Profit potential widget -->
-        <div class="dash-widget">
-          <div class="dash-widget-header">
-            <h4>💰 Total Profit Potential</h4>
-            <span style="font-size:11px;color:var(--text-muted)">all TRACK events</span>
-          </div>
-          <div class="dash-widget-body">
-            <div class="profit-est-block">
-              <div class="profit-est-val" id="dash-profit-est">£—</div>
-              <div class="profit-est-label">Estimated net profit</div>
-              <div class="profit-est-sub">across all TRACK events · after 25% fees</div>
-            </div>
-            <div class="profit-est-count" id="dash-track-count"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- COUNTRY BREAKDOWN CHART -->
-      <div class="country-chart-card" id="country-chart-card">
-        <h4>🌍 Events by Country</h4>
-        <canvas id="country-chart" height="55"></canvas>
-      </div>
-
-      <!-- QUICK ACTIONS -->
-      <div class="section-title">Quick Actions</div>
-      <div class="quick-actions">
-        <div class="quick-card">
-          <span class="qc-icon">🔍</span>
-          <span class="qc-title">Discover Events</span>
-          <span class="qc-desc">Scan Ticketmaster for new events across all configured countries.</span>
-          <button class="btn primary" style="margin-top:4px" onclick="runTask('discover')">▶ Run</button>
-          <span class="qc-last" id="last-discovery">Last run: —</span>
-        </div>
-        <div class="quick-card">
-          <span class="qc-icon">📸</span>
-          <span class="qc-title">Fetch Prices</span>
-          <span class="qc-desc">Get current secondary market prices from Viagogo / StubHub.</span>
-          <button class="btn primary" style="margin-top:4px" onclick="runTask('snapshot')">▶ Run</button>
-          <span class="qc-last" id="last-snapshot">Last run: —</span>
-        </div>
-        <div class="quick-card">
-          <span class="qc-icon">🔄</span>
-          <span class="qc-title">Restock Check</span>
-          <span class="qc-desc">Check all sold-out events. Sends Discord alert if tickets go back on sale.</span>
-          <button class="btn primary" style="margin-top:4px" onclick="runTask('restock')">▶ Run</button>
-          <span class="qc-last" id="last-restock">Last run: —</span>
-        </div>
-        <div class="quick-card">
-          <span class="qc-icon">🧠</span>
-          <span class="qc-title">AI Analysis</span>
-          <span class="qc-desc">Send events to Claude for resale scoring and profit estimates.</span>
-          <button class="btn primary" style="margin-top:4px" onclick="runTask('analyse')">▶ Run</button>
-          <span class="qc-last" id="last-analysis">Last run: —</span>
-        </div>
-      </div>
-
-      <!-- TODAY'S ACTIONS WIDGET -->
-      <div class="section-title">⚡ Today's Actions</div>
+      <!-- ZONE 2: Today's actions -->
+      <div class="section-title">Today's Actions</div>
       <div id="todays-actions-widget" class="todays-actions-grid">
         <div class="ta-card" id="ta-deliveries" onclick="showPage('tickets');showTicketTab('list');document.getElementById('tm-filter-delivery').value='SOLD_UNDELIVERED';loadTickets()">
           <div class="ta-icon">📦</div>
@@ -2167,36 +2257,37 @@ th.accts-col-extra, td.accts-col-extra { display:none; }
         </div>
       </div>
 
-      <!-- RECENT OPPORTUNITIES -->
-      <div class="section-title">Recent Opportunities</div>
-      <div class="table-wrap">
-        <table id="dash-track-table">
-          <thead><tr>
-            <th>Artist</th>
-            <th>Location</th>
-            <th>Date</th>
-            <th>Score</th>
-            <th>Potential</th>
-            <th>Spread</th>
-            <th>Est. Profit</th>
-          </tr></thead>
-          <tbody id="dash-track-tbody">
-            <tr class="empty-row"><td colspan="7">No opportunities yet — run Discovery + AI Analysis to get started</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- RECENT RESTOCKS -->
-      <div class="section-title">Recent Restocks</div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr>
-            <th>Artist</th><th>Location</th><th>Date</th><th>Status Change</th><th>Detected</th>
-          </tr></thead>
-          <tbody id="dash-restock-tbody">
-            <tr class="empty-row"><td colspan="5">No restocks detected yet</td></tr>
-          </tbody>
-        </table>
+      <!-- ZONE 3: Quick actions -->
+      <div class="section-title">Quick Actions</div>
+      <div class="quick-actions">
+        <div class="quick-card">
+          <span class="qc-icon">🔍</span>
+          <span class="qc-title">Discover Events</span>
+          <span class="qc-desc">Scan Ticketmaster for new events across all configured countries.</span>
+          <button class="btn primary" style="margin-top:4px" onclick="runTask('discover')">▶ Run</button>
+          <span class="qc-last" id="last-discovery">Last run: —</span>
+        </div>
+        <div class="quick-card">
+          <span class="qc-icon">📸</span>
+          <span class="qc-title">Fetch Prices</span>
+          <span class="qc-desc">Get current secondary market prices from Viagogo / StubHub.</span>
+          <button class="btn primary" style="margin-top:4px" onclick="runTask('snapshot')">▶ Run</button>
+          <span class="qc-last" id="last-snapshot">Last run: —</span>
+        </div>
+        <div class="quick-card">
+          <span class="qc-icon">🔄</span>
+          <span class="qc-title">Restock Check</span>
+          <span class="qc-desc">Check all sold-out events. Sends Discord alert if tickets go back on sale.</span>
+          <button class="btn primary" style="margin-top:4px" onclick="runTask('restock')">▶ Run</button>
+          <span class="qc-last" id="last-restock">Last run: —</span>
+        </div>
+        <div class="quick-card">
+          <span class="qc-icon">🧠</span>
+          <span class="qc-title">AI Analysis</span>
+          <span class="qc-desc">Send events to Claude for resale scoring and profit estimates.</span>
+          <button class="btn primary" style="margin-top:4px" onclick="runTask('analyse')">▶ Run</button>
+          <span class="qc-last" id="last-analysis">Last run: —</span>
+        </div>
       </div>
 
     </div>
@@ -2983,13 +3074,16 @@ th.accts-col-extra, td.accts-col-extra { display:none; }
   <div id="page-tickets" class="page">
     <div class="page-header">
       <div>
-        <h2>🎫 Ticket Management</h2>
-        <div class="subtitle">Inventory, sales, expenses &amp; profit tracking</div>
+        <h2>Inventory</h2>
+        <div class="subtitle" style="display:flex;align-items:center;gap:8px">
+          Ticket positions, sales &amp; profit tracking
+          <span class="inv-sync"><span class="inv-sync-dot"></span>Sheets live</span>
+        </div>
       </div>
       <div style="display:flex;gap:8px;align-items:center">
-        <button class="btn sm" id="fin-blur-btn" onclick="toggleFinancialBlur()" title="Blur/hide financial values">👁 Hide</button>
-        <button class="btn sm" onclick="refreshTickets()" title="Refresh from Google Sheets">🔄 Refresh</button>
-        <button class="btn primary" onclick="openAddTicketModal()">＋ Add Ticket</button>
+        <button class="btn sm" id="fin-blur-btn" onclick="toggleFinancialBlur()" title="Blur/hide financial values">Hide values</button>
+        <button class="btn sm" onclick="refreshTickets()" title="Refresh from Google Sheets">Refresh</button>
+        <button class="btn primary" onclick="openAddTicketModal()">+ Add ticket</button>
       </div>
     </div>
 
@@ -2998,10 +3092,10 @@ th.accts-col-extra, td.accts-col-extra { display:none; }
 
     <!-- Sub-tabs -->
     <div class="ticket-tabs">
-      <button class="ttab active" id="ttab-dashboard" onclick="showTicketTab('dashboard')">📊 Dashboard</button>
-      <button class="ttab" id="ttab-list"      onclick="showTicketTab('list')">📋 All Tickets</button>
-      <button class="ttab" id="ttab-expenses"  onclick="showTicketTab('expenses')">💸 Expenses</button>
-      <button class="ttab" id="ttab-summary"   onclick="showTicketTab('summary')">📈 Summary</button>
+      <button class="ttab active" id="ttab-dashboard" onclick="showTicketTab('dashboard')">Overview</button>
+      <button class="ttab" id="ttab-list"      onclick="showTicketTab('list')">Positions</button>
+      <button class="ttab" id="ttab-expenses"  onclick="showTicketTab('expenses')">Expenses</button>
+      <button class="ttab" id="ttab-summary"   onclick="showTicketTab('summary')">Summary</button>
     </div>
 
     <!-- ── TAB: Dashboard ── -->
@@ -4281,7 +4375,7 @@ function showPage(name) {
 
   setTimeout(() => {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+    document.querySelectorAll('#topnav nav a[data-page]').forEach(a => a.classList.remove('active'));
 
     const page = document.getElementById('page-' + name);
     if (page) {
@@ -4289,12 +4383,8 @@ function showPage(name) {
       page.classList.add('active');
     }
 
-    const navOrder = ['dashboard','opportunities','events','logs','signups','accounts','batch','tickets','settings'];
-    const idx = navOrder.indexOf(name);
-    if (idx >= 0) {
-      const links = document.querySelectorAll('nav a');
-      if (links[idx]) links[idx].classList.add('active');
-    }
+    const activeLink = document.querySelector(`#topnav nav a[data-page="${name}"]`);
+    if (activeLink) activeLink.classList.add('active');
     currentPage = name;
 
     if (name === 'dashboard')     { loadDashboard(); loadTaskStatus(); loadTodaysActions(); }
@@ -4339,76 +4429,32 @@ async function api(url, opts = {}) {
 // DASHBOARD
 // ══════════════════════════════════════════════════
 async function loadDashboard() {
+  // Scheduler status
   const stats = await api('/api/stats');
-  if (!stats) return;
-
-  animateValue(document.getElementById('stat-total'),    stats.total_events || 0);
-  animateValue(document.getElementById('stat-onsale'),   stats.on_sale || 0);
-  animateValue(document.getElementById('stat-soldout'),  stats.sold_out || 0);
-  animateValue(document.getElementById('stat-tracked'),  stats.tracked || 0);
-  animateValue(document.getElementById('stat-restocks'), stats.restocks_detected || 0);
-
-  schedulerOn = stats.scheduler_running;
-  updateSchedulerUI();
-
-  // Session 4 — intelligence widgets
-  loadTopOpportunities();
-  loadProfitPotential();
-  loadCountryChart();
-  loadWatchlistIds();
-
-  // Update badge on nav
-  const badge = document.getElementById('badge-opps');
-  if (stats.tracked > 0) {
-    badge.textContent = stats.tracked;
-    badge.classList.add('show');
-  } else {
-    badge.classList.remove('show');
+  if (stats) {
+    schedulerOn = stats.scheduler_running;
+    updateSchedulerUI();
+    const badge = document.getElementById('badge-opps');
+    if (stats.tracked > 0) {
+      badge.textContent = stats.tracked;
+      badge.classList.add('show');
+    } else {
+      badge.classList.remove('show');
+    }
   }
 
-  // Recent TRACK
-  const tracks = await api('/api/alerts/track');
-  const tbody  = document.getElementById('dash-track-tbody');
-  if (tracks && tracks.length) {
-    tbody.innerHTML = tracks.slice(0, 8).map(r => `
-      <tr onclick="openEventModal(${r.event_id})">
-        <td><strong>${esc(r.artist)}</strong></td>
-        <td>${countryFlag(r.country)} ${esc(r.city)}</td>
-        <td>${r.event_date}</td>
-        <td>${scoreBadge(r.demand_score)}</td>
-        <td>${potentialBadge(r.resale_potential)}</td>
-        <td>${spreadCell(r.spread_pct)}</td>
-        <td>${r.secondary_low ? '£' + (r.secondary_low * 0.75 - (r.face_value_min || 40)).toFixed(0) : '—'}</td>
-      </tr>`).join('');
-    staggerTbody(tbody);
-  } else {
-    tbody.innerHTML = `<tr><td colspan="7"><div class="empty-state">
-      <span class="es-icon">🔥</span>
-      <span class="es-title">No opportunities yet</span>
-      <span class="es-desc">Run Discovery + AI Analysis to find high-profit events.</span>
-      <button class="btn primary" onclick="runTask('discover')">▶ Run Discovery</button>
-    </div></td></tr>`;
-  }
-
-  // Recent restocks
-  const restocks = await api('/api/alerts/restock');
-  const rbody    = document.getElementById('dash-restock-tbody');
-  if (restocks && restocks.length) {
-    rbody.innerHTML = restocks.slice(0, 5).map(r => `
-      <tr>
-        <td><strong>${esc(r.artist)}</strong></td>
-        <td>${countryFlag(r.country)} ${esc(r.city)}</td>
-        <td>${r.event_date}</td>
-        <td><span class="badge badge-blue">${r.prev_status} → ${r.new_status}</span></td>
-        <td style="color:var(--text-muted);font-size:12px">${r.detected_at?.slice(0, 16) || '—'}</td>
-      </tr>`).join('');
-    staggerTbody(rbody);
-  } else {
-    rbody.innerHTML = `<tr><td colspan="5"><div class="empty-state">
-      <span class="es-icon">🔄</span>
-      <span class="es-title">No restocks detected</span>
-      <span class="es-desc">The scout watches sold-out events and alerts you when tickets come back.</span>
-    </div></td></tr>`;
+  // Money stats from ticket manager
+  const summary = await api('/api/tm-summary');
+  if (summary) {
+    const fmt = (v) => v != null ? (v >= 0 ? '+' : '') + '£' + Math.abs(v).toLocaleString('en-GB', {minimumFractionDigits: 0, maximumFractionDigits: 0}) : '—';
+    const grossEl  = document.getElementById('db-gross-pl');
+    const netEl    = document.getElementById('db-net-profit');
+    const invEl    = document.getElementById('db-invested');
+    const roiEl    = document.getElementById('db-roi');
+    if (grossEl)  { grossEl.textContent  = fmt(summary.grossProfit);   grossEl.className  = 'db-money-value fin-val ' + (summary.grossProfit >= 0 ? 'db-pos' : 'db-neg'); }
+    if (netEl)    { netEl.textContent    = fmt(summary.netProfit);     netEl.className    = 'db-money-value fin-val ' + (summary.netProfit   >= 0 ? 'db-pos' : 'db-neg'); }
+    if (invEl)    { invEl.textContent    = '£' + (summary.totalInvested || 0).toLocaleString('en-GB', {minimumFractionDigits: 0, maximumFractionDigits: 0}); }
+    if (roiEl)    { roiEl.textContent    = (summary.roi != null ? summary.roi.toFixed(1) + '%' : '—'); roiEl.className = 'db-money-value ' + (summary.roi >= 0 ? 'db-pos' : 'db-neg'); }
   }
 }
 
@@ -9356,6 +9402,34 @@ showPage = function(name) {
     loadUserList();
   }
 };
+
+// ── Top nav dropdown logic ────────────────────────────────────────────────────
+function tnDropClose() {
+  document.querySelectorAll('.tn-drop-menu').forEach(m => m.classList.remove('open'));
+  document.querySelectorAll('.tn-drop-btn').forEach(b => b.classList.remove('active'));
+}
+
+function tnDropToggle(name, defaultPage) {
+  const menu = document.getElementById('tn-menu-' + name);
+  const isOpen = menu.classList.contains('open');
+  tnDropClose();
+  if (isOpen) {
+    showPage(defaultPage);
+  } else {
+    menu.classList.add('open');
+    const btn = menu.previousElementSibling;
+    if (btn) btn.classList.add('active');
+  }
+}
+
+function tnNav(page) {
+  tnDropClose();
+  showPage(page);
+}
+
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.tn-drop')) tnDropClose();
+});
 </script>
 </body>
 </html>
