@@ -2137,18 +2137,7 @@ body { flex-direction: column !important; overflow: hidden; }
 
   <nav class="tn-nav">
     <a data-page="dashboard" class="active" onclick="showPage('dashboard')">Dashboard</a>
-    <a data-page="opportunities" onclick="showPage('opportunities')">
-      Opportunities<span class="nav-badge" id="badge-opps" style="margin-left:5px;border-radius:8px;padding:1px 5px;font-size:10px;font-weight:700;background:var(--neon);color:#000;display:none"></span>
-    </a>
     <a data-page="tickets" onclick="showPage('tickets')" class="tn-inventory-link">Inventory</a>
-
-    <div class="tn-drop" id="tn-drop-scout">
-      <button class="tn-drop-btn" onclick="tnDropToggle('scout', 'events')">Scout <span class="tn-drop-arrow">▾</span></button>
-      <div class="tn-drop-menu" id="tn-menu-scout">
-        <a data-page="events" onclick="tnNav('events')">All Events</a>
-        <a data-page="logs" onclick="tnNav('logs')">Live Logs</a>
-      </div>
-    </div>
 
     <div class="tn-drop" id="tn-drop-tools">
       <button class="tn-drop-btn" onclick="tnDropToggle('tools', 'signups')">Tools <span class="tn-drop-arrow">▾</span></button>
@@ -2158,6 +2147,18 @@ body { flex-direction: column !important; overflow: hidden; }
           Accounts<span class="nav-badge" id="badge-accounts" style="margin-left:5px;border-radius:8px;padding:1px 5px;font-size:10px;font-weight:700;background:var(--neon);color:#000;display:none"></span>
         </a>
         <a data-page="batch" onclick="tnNav('batch')">CSV Builder</a>
+      </div>
+    </div>
+
+    <a data-page="opportunities" onclick="showPage('opportunities')">
+      Opportunities<span class="nav-badge" id="badge-opps" style="margin-left:5px;border-radius:8px;padding:1px 5px;font-size:10px;font-weight:700;background:var(--neon);color:#000;display:none"></span>
+    </a>
+
+    <div class="tn-drop" id="tn-drop-scout">
+      <button class="tn-drop-btn" onclick="tnDropToggle('scout', 'events')">Scout <span class="tn-drop-arrow">▾</span></button>
+      <div class="tn-drop-menu" id="tn-menu-scout">
+        <a data-page="events" onclick="tnNav('events')">All Events</a>
+        <a data-page="logs" onclick="tnNav('logs')">Live Logs</a>
       </div>
     </div>
 
