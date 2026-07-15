@@ -1924,10 +1924,11 @@ body { flex-direction: column !important; overflow: hidden; }
   align-items: center;
   padding: 0 20px;
   flex-shrink: 0;
-  z-index: 100;
+  z-index: 1000;
   gap: 0;
   position: sticky;
   top: 0;
+  overflow: visible;
 }
 .tn-logo {
   display: flex; align-items: center; gap: 9px;
@@ -1966,7 +1967,7 @@ body { flex-direction: column !important; overflow: hidden; }
 .tn-drop-menu {
   display: none; position: absolute; top: calc(100% + 6px); left: 0;
   background: var(--surface); border: 1px solid var(--border); border-radius: 9px;
-  padding: 5px; min-width: 148px; z-index: 200;
+  padding: 5px; min-width: 148px; z-index: 1001;
   box-shadow: 0 12px 32px rgba(0,0,0,.45);
 }
 .tn-drop-menu.open { display: block; }
