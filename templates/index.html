@@ -2080,6 +2080,16 @@ body { flex-direction: column !important; overflow: hidden; }
 .inv-sync { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text-muted); }
 .inv-sync-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--neon); animation: tn-pulse 2.5s ease-in-out infinite; }
 
+/* Dashboard payout breakdown */
+.db-payout-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 6px 0; margin-bottom: 28px; }
+.db-payout-row { display: flex; align-items: center; justify-content: space-between; padding: 11px 20px; border-bottom: 1px solid var(--border); }
+.db-payout-row:last-of-type { border-bottom: none; }
+.db-payout-platform { font-size: 13px; font-weight: 600; color: var(--text); }
+.db-payout-amount { font-size: 14px; font-weight: 700; color: var(--orange, #f59e0b); font-variant-numeric: tabular-nums; }
+.db-payout-total { display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; border-top: 1px solid var(--border); font-size: 13px; font-weight: 700; color: var(--text); background: rgba(255,255,255,.03); border-radius: 0 0 12px 12px; }
+.db-payout-total span:last-child { font-size: 15px; color: var(--orange, #f59e0b); font-variant-numeric: tabular-nums; }
+.db-payout-empty { padding: 20px; text-align: center; font-size: 13px; color: var(--neon); font-weight: 600; }
+
 /* Dashboard money grid */
 .db-money-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 28px; }
 .db-money-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px 18px; position: relative; overflow: hidden; transition: border-color .2s, transform .2s; }
@@ -2257,6 +2267,12 @@ body { flex-direction: column !important; overflow: hidden; }
             <div class="ta-label">Events in 7 Days</div>
           </div>
         </div>
+      </div>
+
+      <!-- ZONE 2b: Pending payouts by platform -->
+      <div class="section-title">Pending Payouts</div>
+      <div class="db-payout-card">
+        <div id="db-payout-breakdown"><div class="db-payout-empty">Loading...</div></div>
       </div>
 
       <!-- ZONE 3: Quick actions -->
@@ -4449,6 +4465,7 @@ async function loadDashboard() {
   const summary = await api('/api/tm-summary');
   if (summary) {
     const fmt = (v) => v != null ? (v >= 0 ? '+' : '') + '£' + Math.abs(v).toLocaleString('en-GB', {minimumFractionDigits: 0, maximumFractionDigits: 0}) : '—';
+    const fmtP = (v) => '£' + (v || 0).toLocaleString('en-GB', {minimumFractionDigits: 0, maximumFractionDigits: 0});
     const grossEl  = document.getElementById('db-gross-pl');
     const netEl    = document.getElementById('db-net-profit');
     const invEl    = document.getElementById('db-invested');
@@ -4457,6 +4474,27 @@ async function loadDashboard() {
     if (netEl)    { netEl.textContent    = fmt(summary.netProfit);     netEl.className    = 'db-money-value fin-val ' + (summary.netProfit   >= 0 ? 'db-pos' : 'db-neg'); }
     if (invEl)    { invEl.textContent    = '£' + (summary.totalInvested || 0).toLocaleString('en-GB', {minimumFractionDigits: 0, maximumFractionDigits: 0}); }
     if (roiEl)    { roiEl.textContent    = (summary.roi != null ? summary.roi.toFixed(1) + '%' : '—'); roiEl.className = 'db-money-value ' + (summary.roi >= 0 ? 'db-pos' : 'db-neg'); }
+
+    // Payout breakdown by platform
+    const byPlatform = summary.payoutsByPlatform || {};
+    const platforms  = Object.keys(byPlatform).sort((a, b) => byPlatform[b] - byPlatform[a]);
+    const total      = summary.pendingPayoutTotal || 0;
+    const el         = document.getElementById('db-payout-breakdown');
+    if (el) {
+      if (platforms.length === 0) {
+        el.innerHTML = '<div class="db-payout-empty">All payouts settled</div>';
+      } else {
+        el.innerHTML = platforms.map(p => `
+          <div class="db-payout-row">
+            <span class="db-payout-platform">${esc(p)}</span>
+            <span class="db-payout-amount fin-val">${fmtP(byPlatform[p])}</span>
+          </div>`).join('') +
+          `<div class="db-payout-total">
+            <span>Total pending</span>
+            <span class="fin-val">${fmtP(total)}</span>
+          </div>`;
+      }
+    }
   }
 }
 
